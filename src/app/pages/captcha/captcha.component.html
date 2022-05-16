@@ -1,0 +1,38 @@
+<form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && onSubmit()"
+    [mustMatch]="['captchaCodeG', 'captchaCodeI']">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title m-0">Captcha Form Demo</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-2">
+                    <canvas #myCanvasRef height="40" width="190" class="bg-warning cursor-pointer-events-none"></canvas>
+                    <span class="btn btn-success text-dark" (click)="createCaptcha()" style="margin-bottom: 33px;"><i
+                            class="fas fa-sync-alt cursor-pointer"></i></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Enter Captcha</mat-label>
+                        <input matInput type="text" name="captchaCodeI"
+                            [(ngModel)]="captchaCodeI" #captchaCodeInput="ngModel" [maxlength]="lengthOtp" required>
+                        <mat-error *ngIf="captchaCodeInput.errors?.['required']">This field is required.</mat-error>
+                        <mat-error *ngIf="captchaCodeInput.errors?.['mustMatch']">Invalid Captcha.</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <input type="hidden" name="captchaCodeG" [(ngModel)]="captchaCodeG">
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit"
+                        class="btn btn-primary col-lg-1 col-md-1 col-sm-12 col-xs-12 mt-2 mb-2 mr-2 mt-md-0 mb-md-0"
+                        [disabled]="!loginForm.form.valid">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
